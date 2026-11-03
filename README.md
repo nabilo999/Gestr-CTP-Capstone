@@ -7,6 +7,54 @@ Gestr is a desktop app concept that uses a webcam to recognize hand gestures and
 
 The goal is to experiment with gesture-based game control and learn how gesture recognition works. Gestr is not intended to replace a keyboard or connect directly to a specific game.
 
+## Desktop UI Prototype
+
+The current implementation is a **Windows desktop UI prototype** built with Electron and React. It includes Home, Mappings, Gesture Settings, and Camera, styled after the four supplied design references.
+
+### Quick start(Windows)
+
+Install Node.js 22.12 or newer, then open a terminal in your existing project folder and run:
+
+```powershell
+git pull
+npm ci
+npm start
+```
+
+`npm start` builds the interface and opens GESTR in its own desktop window. No browser or hosted service is needed. For development with automatic UI updates, run `npm run dev` instead.
+
+### build a Windows executable
+
+After completing `npm ci`, you can build your own executable instead of using `npm start`:
+
+```powershell
+npm run package
+```
+
+Open `release/win-unpacked/GESTR.exe`. Keep this executable with the other files in its folder
+
+### What works in this version
+
+- All four tabs, including keyboard navigation with the arrow keys.
+- Dropdowns, sliders, numeric fields, and switches with temporary visual state.
+- Mapping edits reflected in the Home overview.
+- Mapping list scrolling and resizable, minimizable, maximizable windows.
+
+All values reset when the app closes. Save, Test, Add Mapping, Reset to Defaults, Start / Stop Camera, and Calibrate are intentionally visual placeholders. The hand illustration, Camera Active label, and status badges are static mockup content. There is **no webcam access, recognition, input injection, calibration, configuration persistence, or backend connection**.
+
+The initial Home mouse-axis summaries use “Swipe Left / Right” and “Swipe Up / Down” as shown in the reference. Their dropdown defaults use “Swipe Right” and “Swipe Up” from the Mappings specification. Editing either gesture replaces the overview summary with the selected value.
+
+### Structure and checks
+
+- `electron/main.cjs`: desktop window and native Windows title-bar controls.
+- `src/pages/`: the four pages.
+- `src/components/`: reusable panels, controls, mappings, and static preview artwork.
+- `src/data.js`: mapping defaults and option lists.
+- `src/styles.css` and `src/theme.css`: shared layout and appearance.
+- `tests/desktop.spec.js`: Electron smoke test for navigation, controls, scrolling, resizing, and placeholder actions.
+
+Run `npm test` to build and test the actual Electron window. Screenshots are written to the ignored `test-results/` folder. Run the tests in an interactive Windows desktop session. The app icon is included in `build/`; `scripts/generate-icon.ps1` regenerates it using Windows drawing APIs.
+
 ## Project Goals
 
 - **Recognize hand gestures:** Explore whether the app can reliably recognize a small set of selected gestures.
@@ -70,11 +118,7 @@ During testing, the team will evaluate:
 
 ## Project Roadmap
 
-1. **Choose the first test:** Select a small set of gestures, one or two games, and the computer setup for the demo.
-2. **Test the camera:** Build a basic demo that displays the webcam and indicates whether a hand can be tracked.
-3. **Test gesture recognition:** Collect and label gesture examples, train the model, and evaluate recognition results.
-4. **Add game controls:** Allow players to map gestures to keys and test the mappings in selected games.
-5. **Share the results:** Document the tests, challenges, findings, and next steps in the capstone presentation and repository.
+See [ROADMAP.md](ROADMAP.md) for the project checklist and available tasks.
 
 
 ## Team

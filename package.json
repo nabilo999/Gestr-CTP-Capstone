@@ -1,0 +1,43 @@
+{
+  "name": "gestr",
+  "productName": "GESTR",
+  "version": "0.1.0",
+  "private": true,
+  "engines": { "node": ">=22.12.0" },
+  "description": "GESTR desktop UI prototype",
+  "author": "GESTR Capstone Team",
+  "main": "electron/main.cjs",
+  "type": "module",
+  "scripts": {
+    "start": "npm run build && node scripts/launch.mjs",
+    "dev": "node scripts/dev.mjs",
+    "build": "vite build",
+    "package": "npm run build && electron-builder --win --dir",
+    "dist": "npm run build && electron-builder --win zip",
+    "test": "npm run build && playwright test"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "electron": "^45.2.1",
+    "electron-builder": "^26.0.12",
+    "vite": "^7.2.0"
+  },
+  "build": {
+    "appId": "org.gestr.desktop",
+    "productName": "GESTR",
+    "directories": { "output": "release" },
+    "files": ["dist/**/*", "electron/**/*", "build/icon.ico", "package.json"],
+    "win": {
+      "target": "zip",
+      "icon": "build/icon.ico",
+      "signExecutable": false
+    },
+    "artifactName": "GESTR-${version}-Windows-${arch}.${ext}",
+    "npmRebuild": false
+  }
+}
